@@ -54,6 +54,10 @@ defmodule TodoList do
 
   defp parse_date(date) do
     date_list = String.split(date, "/")
-    {Enum.at(date_list, 0), Enum.at(date_list, 1), Enum.at(date_list, 2)}
+    year = date_list |> Enum.at(0) |> String.to_integer
+    month = date_list |> Enum.at(1) |> String.to_integer
+    day = date_list |> Enum.at(2) |> String.to_integer
+
+    {year, month, day}
   end
 end
