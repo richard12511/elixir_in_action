@@ -14,20 +14,17 @@ defmodule TodoList do
 
   def new_from_file(path) do
     File.stream!(path)
-    |> Enum.map(fn line -> String.replace(line, "\n", "") end)
-    |> Enum.map(fn line -> line_to_entry(line) end)
+    |> Stream.map(fn line -> String.replace(line, "\n", "") end)
+    |> Stream.map(fn line -> line_to_entry(line) end)
     |> new
 
   end
 
   def add_entry(%TodoList{entries: entries, auto_id: auto_id} = todo_list, entry) do
     entry = Map.put(entry, :id, auto_id)
-    IO.inspect(entry)
     new_entries = HashDict.put(entries, auto_id, entry)
-    IO.inspect(new_entries)
 
     %TodoList{todo_list | entries: new_entries, auto_id: auto_id + 1}
-#    MultiDict.add(todo_list, entry.date, entry)
   end
 
   def entries(%TodoList{entries: entries}, date) do
