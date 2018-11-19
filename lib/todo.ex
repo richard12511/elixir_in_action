@@ -24,6 +24,7 @@ defmodule TodoServer do
 
   defp process_message(todo_list, {:entries, caller, date}) do
     send(caller, {:response, TodoList.entries(todo_list, date)})
+    todo_list
   end
 
   defp process_message(todo_list, {:add_entry, entry}), do: TodoList.add_entry(todo_list, entry)
